@@ -16,7 +16,7 @@ public class RepositoryTest {
     private Repository<Person> emptyRepository = new Repository<>();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         notEmptyRepository = new Repository<>();
         notEmptyRepository.add(new Person(1, "Hetfield", LocalDate.parse("1973-01-02")));
         notEmptyRepository.add(new Person(2, "Ulrich", LocalDate.parse("1975-02-03")));
@@ -26,7 +26,7 @@ public class RepositoryTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test

@@ -3,17 +3,17 @@ package model;
 import org.joda.time.LocalDate;
 
 public class Person {
-    private int id;
+    private Integer id;
     private String name;
     private LocalDate birthDate;
 
-    public Person(int id, String name, LocalDate birthDate) {
+    public Person(Integer id, String name, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -21,7 +21,7 @@ public class Person {
         return name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return LocalDate
                 .now()
                 .minusYears(getBirthDay().getYear())
