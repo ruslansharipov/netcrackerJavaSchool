@@ -1,4 +1,7 @@
-package labs.repository;
+package repository;
+
+import java.util.Comparator;
+import java.util.List;
 
 public interface Storage<E>{
     int size();
@@ -8,4 +11,6 @@ public interface Storage<E>{
     E remove(int index);
     boolean remove(E e);
     boolean clear();
+    void bubbleSort(Comparator<E> comparator);
+    Storage<E> search(Checker<E> checker);
 }

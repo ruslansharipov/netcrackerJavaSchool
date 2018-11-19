@@ -1,6 +1,6 @@
-package labs.repository;
+package repository;
 
-import java.util.Arrays;
+import java.util.Comparator;
 
 public class Repository<E> implements Storage<E> {
     private static final int DEFAULT_CAPACITY = 10;
@@ -39,13 +39,17 @@ public class Repository<E> implements Storage<E> {
     private void extend() {
         int oldCapacity = dataStorage.length;
         int newCapacity = oldCapacity + (oldCapacity >> 1);
-        dataStorage = Arrays.copyOf(dataStorage, newCapacity);
+        Object[] newStorage = new Object[newCapacity];
+        for (int i = 0; i <= size; i++) {
+            newStorage[i] = dataStorage[i];
+        }
+        dataStorage = newStorage;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public E get(int index) {
-        if (index > size) {
+        if (index > size || size == 0) {
             throw new IndexOutOfBoundsException(String.valueOf(index));
         }
         return (E) dataStorage[index];
@@ -55,12 +59,14 @@ public class Repository<E> implements Storage<E> {
     public E remove(int index) {
         E objectToRemove = get(index);
         fastRemove(index);
-        size--;
         return objectToRemove;
     }
 
-    private void fastRemove(int index){
-        System.arraycopy(dataStorage, index + 1, dataStorage, index, size - index - 1);
+    private void fastRemove(int index) {
+        for (int i = index + 1; i < size; i++) {
+            dataStorage[i - 1] = dataStorage[i];
+        }
+        size--;
     }
 
     @Override
@@ -87,6 +93,32 @@ public class Repository<E> implements Storage<E> {
     public boolean clear() {
         initializeDataStorage();
         return true;
+    }
+
+    @Override
+    public void bubbleSort(Comparator<E> comparator) {
+        for (int i = 1; i < this.size(); i++) {
+            for (int j = 1; j < this.size(); j++) {
+                E currentElement = this.get(j);
+                E previousElement = this.get(j - 1);
+                if (comparator.compare(previousElement, currentElement) > 0) {
+                    this.dataStorage[j] = previousElement;
+                    this.dataStorage[j - 1] = currentElement;
+                }
+            }
+        }
+    }
+
+    @Override
+    public Storage<E> search(Checker<E> checker) {
+        Storage<E> searchList = new Repository<>();
+        for (int i = 0; i < size; i++) {
+            E elementToCheck = get(i);
+            if (checker.check(elementToCheck)) {
+                searchList.add(elementToCheck);
+            }
+        }
+        return searchList;
     }
 
     @Override

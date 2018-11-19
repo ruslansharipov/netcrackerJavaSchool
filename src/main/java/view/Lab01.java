@@ -1,13 +1,14 @@
-package labs.view;
+package view;
 
-import labs.model.Person;
-import labs.repository.Repository;
+import model.Person;
+import repository.Repository;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.Scanner;
 
 public class Lab01 {
+
 
     private static final String SIZE = "--size";
     private static final String IS_EMPTY = "--isEmpty";
@@ -31,7 +32,7 @@ public class Lab01 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(HELP);
-        Repository<Person> personRepository = new Repository<>();
+        Repository<Person> repository = new Repository<>();
 
         while (appRunning) {
             String command = scanner.next();
@@ -40,16 +41,16 @@ public class Lab01 {
                     appRunning = false;
                     break;
                 case SIZE:
-                    System.out.println(personRepository.size());
+                    System.out.println(repository.size());
                     break;
                 case IS_EMPTY:
-                    System.out.println(personRepository.isEmpty());
+                    System.out.println(repository.isEmpty());
                     break;
                 case ADD:
                     System.out.println("Введите данные новой записи через пробел -> ID Имя ДатаРождения Пол\n" +
                             "например\n" +
-                            "1 Иван 01-02-1993 Мужской");
-                    if (personRepository.add(new Person(
+                            "1 Иван 01-02-1993");
+                    if (repository.add(new Person(
                             Integer.parseInt(scanner.next()),
                             scanner.next(),
                             LocalDate.parse(scanner.next(), DateTimeFormat.forPattern("dd-MM-yyyy"))
@@ -60,21 +61,20 @@ public class Lab01 {
                     }
                     break;
                 case CLEAR:
-                    System.out.println(personRepository.clear());
+                    System.out.println(repository.clear());
                     break;
                 case REMOVE:
                     System.out.println("введите номер удаляемой записи");
-                    System.out.println(personRepository.remove(Integer.parseInt(scanner.next())));
+                    System.out.println(repository.remove(Integer.parseInt(scanner.next())));
                     break;
                 case PRINT:
-                    System.out.println(personRepository.toString());
+                    System.out.println(repository.toString());
                     break;
                 default:
                     System.out.println(HELP);
                     break;
             }
         }
-
 
 //        Repository<String> myStringArrayList = new Repository<>();
 //
