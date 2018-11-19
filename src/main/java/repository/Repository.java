@@ -1,6 +1,7 @@
 package repository;
 
 import repository.checker.Checker;
+import repository.sorter.BubbleSorter;
 import repository.sorter.Sorter;
 
 import java.util.Comparator;
@@ -10,8 +11,14 @@ public class Repository<E> implements Storage<E> {
 
     private Object[] dataStorage;
     private int size;
+    private Sorter<E> sorter;
 
     public Repository() {
+        this(new BubbleSorter());
+    }
+
+    public Repository(Sorter<E> sorter) {
+        this.sorter = sorter;
         initializeDataStorage();
     }
 
@@ -99,17 +106,8 @@ public class Repository<E> implements Storage<E> {
     }
 
     @Override
-    public void bubbleSort(Comparator<E> comparator) {
-        for (int i = 1; i < this.size(); i++) {
-            for (int j = 1; j < this.size(); j++) {
-                E currentElement = this.get(j);
-                E previousElement = this.get(j - 1);
-                if (comparator.compare(previousElement, currentElement) > 0) {
-                    this.dataStorage[j] = previousElement;
-                    this.dataStorage[j - 1] = currentElement;
-                }
-            }
-        }
+    public void sortBy(Comparator<E> comparator) {
+        sorter.sort(comparator, size, dataStorage);
     }
 
     @Override

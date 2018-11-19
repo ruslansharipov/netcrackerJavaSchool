@@ -96,7 +96,7 @@ public class RepositoryTest {
 
     @Test
     public void bubbleSort() {
-        notEmptyRepository.bubbleSort(new PersonByNameComparator());
+        notEmptyRepository.sortBy(new PersonByNameComparator());
 
         Person actualPerson = notEmptyRepository.get(0);
         Person expectedPerson = HETFIELD;

@@ -12,7 +12,8 @@ public interface Storage<E>{
     E remove(int index);
     boolean remove(E e);
     boolean clear();
-    void bubbleSort(Comparator<E> comparator);
+
+    void sortBy(Comparator<E> comparator);
     Storage<E> search(Checker<E> checker);
     boolean contains(E e);
 }
