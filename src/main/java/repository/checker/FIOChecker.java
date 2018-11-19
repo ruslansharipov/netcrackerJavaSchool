@@ -1,8 +1,7 @@
-package repository;
+package repository.checker;
 
-import com.sun.istack.internal.NotNull;
 import model.Person;
-import org.joda.time.LocalDate;
+import repository.checker.Checker;
 
 public class FIOChecker implements Checker<Person> {
     private String query;

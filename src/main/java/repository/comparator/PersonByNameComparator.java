@@ -1,4 +1,4 @@
-package repository;
+package repository.comparator;
 
 import model.Person;
 

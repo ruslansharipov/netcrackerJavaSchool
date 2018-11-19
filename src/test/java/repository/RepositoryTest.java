@@ -5,6 +5,8 @@ import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import repository.checker.FIOChecker;
+import repository.comparator.PersonByNameComparator;
 
 import static org.junit.Assert.*;
 

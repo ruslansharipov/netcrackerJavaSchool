@@ -1,7 +1,8 @@
 package repository;
 
+import repository.checker.Checker;
+
 import java.util.Comparator;
-import java.util.List;
 
 public interface Storage<E>{
     int size();
@@ -13,4 +14,5 @@ public interface Storage<E>{
     boolean clear();
     void bubbleSort(Comparator<E> comparator);
     Storage<E> search(Checker<E> checker);
+    boolean contains(E e);
 }

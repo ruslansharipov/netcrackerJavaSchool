@@ -1,5 +1,8 @@
 package repository;
 
+import repository.checker.Checker;
+import repository.sorter.Sorter;
+
 import java.util.Comparator;
 
 public class Repository<E> implements Storage<E> {
@@ -119,6 +122,18 @@ public class Repository<E> implements Storage<E> {
             }
         }
         return searchList;
+    }
+
+    @Override
+    public boolean contains(E e) {
+        if (e != null) {
+            for (int i = 0; i < size; i++) {
+                if (e.equals(dataStorage[i])){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
