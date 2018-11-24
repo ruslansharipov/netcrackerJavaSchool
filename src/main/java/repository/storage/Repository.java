@@ -23,6 +23,10 @@ public class Repository<E> implements Storage<E> {
         dataStorage = new Object[DEFAULT_CAPACITY];
     }
 
+    public Sorter<E> getSorter() {
+        return sorter;
+    }
+
     public void setSorter(Sorter<E> sorter) {
         this.sorter = sorter;
     }
