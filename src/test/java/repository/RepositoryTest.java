@@ -16,7 +16,7 @@ import repository.storage.Repository;
 import static org.junit.Assert.*;
 
 public class RepositoryTest {
-    private static Person HETFIELD = new Person(1, "Hetfield", LocalDate.parse("1973-01-02"));
+    public static Person HETFIELD = new Person(1, "Hetfield", LocalDate.parse("1973-01-02"));
     private Repository<Person> notEmptyRepository;
     private Repository<Person> emptyRepository = new Repository<>();
 
