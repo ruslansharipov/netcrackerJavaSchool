@@ -13,7 +13,6 @@ public class BubbleSorterTest {
 
     private BubbleSorter<Person> bubbleSorter = new BubbleSorter<>();
     private PersonByNameComparator byName = new PersonByNameComparator();
-    private Repository<Person> emptyRepository = new Repository<>();
     private Repository<Person> notEmptyRepository;
 
     @Before
