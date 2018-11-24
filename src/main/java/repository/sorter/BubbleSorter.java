@@ -5,6 +5,12 @@ import repository.storage.Repository;
 import java.util.Comparator;
 
 public class BubbleSorter<E> implements Sorter<E> {
+    /**
+     * Sorts specified repository using in order thar comparator sets
+     *
+     * @param comparator sets the way of comparing objects
+     * @param repository repository to sort
+     */
     @Override
     public void sort(Comparator<E> comparator, Repository<E> repository) {
         int size = repository.size();
