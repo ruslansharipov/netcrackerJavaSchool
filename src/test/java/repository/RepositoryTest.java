@@ -6,7 +6,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import repository.checker.FIOChecker;
+import repository.comparator.PersonByAgeComparator;
+import repository.comparator.PersonByIdComparator;
 import repository.comparator.PersonByNameComparator;
+import repository.sorter.BubbleSorter;
+import repository.sorter.Sorter;
+import repository.storage.Repository;
 
 import static org.junit.Assert.*;
 
@@ -15,14 +20,19 @@ public class RepositoryTest {
     private Repository<Person> notEmptyRepository;
     private Repository<Person> emptyRepository = new Repository<>();
 
+    public static Repository<Person> getNotEmptyRepository() {
+        Repository<Person> repository = new Repository<>();
+        repository.add(new Person(1, "Hetfield", LocalDate.parse("1973-01-02")));
+        repository.add(new Person(2, "Ulrich", LocalDate.parse("1975-02-03")));
+        repository.add(new Person(3, "Hammett", LocalDate.parse("1971-04-05")));
+        repository.add(new Person(4, "Jason", LocalDate.parse("1972-12-23")));
+        repository.add(new Person(5, "Newsted", LocalDate.parse("1973-09-15")));
+        return repository;
+    }
+
     @Before
     public void setUp() {
-        notEmptyRepository = new Repository<>();
-        notEmptyRepository.add(new Person(1, "Hetfield", LocalDate.parse("1973-01-02")));
-        notEmptyRepository.add(new Person(2, "Ulrich", LocalDate.parse("1975-02-03")));
-        notEmptyRepository.add(new Person(3, "Hammett", LocalDate.parse("1971-04-05")));
-        notEmptyRepository.add(new Person(4, "Jason", LocalDate.parse("1972-12-23")));
-        notEmptyRepository.add(new Person(5, "Newsted", LocalDate.parse("1973-09-15")));
+        notEmptyRepository = getNotEmptyRepository();
     }
 
     @After
@@ -67,7 +77,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void remove() {
+    public void removeByIndex() {
         Person actualPerson = notEmptyRepository.remove(0);
         Person expectedPerson = new Person(1, "Hetfield", LocalDate.parse("1973-01-02"));
         int actualSize = notEmptyRepository.size();
@@ -78,7 +88,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void remove1() {
+    public void removeByObject() {
         boolean actualOnNull = notEmptyRepository.remove(null);
         boolean actualOnNotExisting = notEmptyRepository.remove(new Person(2, "Hetfield", LocalDate.parse("1973-01-02")));
         boolean actualOnExisting = notEmptyRepository.remove(new Person(1, "Hetfield", LocalDate.parse("1973-01-02")));
@@ -98,7 +108,7 @@ public class RepositoryTest {
     public void bubbleSort() {
         notEmptyRepository.sortBy(new PersonByNameComparator());
 
-        Person actualPerson = notEmptyRepository.get(0);
+        Person actualPerson = notEmptyRepository.get(1);
         Person expectedPerson = HETFIELD;
 
         assertEquals(expectedPerson, actualPerson);
@@ -132,5 +142,55 @@ public class RepositoryTest {
                 .size();
 
         assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    public void setSorter() {
+        Sorter<Person> expectedSorter = new BubbleSorter<>();
+        notEmptyRepository.setSorter(expectedSorter);
+        Sorter<Person> actualSorter = notEmptyRepository.getSorter();
+
+        assertEquals(expectedSorter, actualSorter);
+    }
+
+    @Test
+    public void sortBy() {
+        notEmptyRepository.sortBy(new PersonByNameComparator());
+        Person actual = notEmptyRepository.get(1);
+        Person expected = HETFIELD;
+
+        assertEquals(expected, actual);
+
+        notEmptyRepository.sortBy(new PersonByAgeComparator());
+        actual = notEmptyRepository.get(1);
+
+        assertEquals(expected, actual);
+
+        notEmptyRepository.sortBy(new PersonByIdComparator());
+        actual = notEmptyRepository.get(0);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void contains() {
+        boolean actual = notEmptyRepository.contains(HETFIELD);
+        boolean expected = true;
+
+        assertEquals(expected, actual);
+
+        actual = emptyRepository.contains(HETFIELD);
+        expected = false;
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void set() {
+        notEmptyRepository.set(3, HETFIELD);
+        Person expected = HETFIELD;
+        Person actual = notEmptyRepository.get(3);
+
+        assertEquals(expected, actual);
     }
 }
