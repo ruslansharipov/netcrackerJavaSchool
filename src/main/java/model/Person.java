@@ -38,7 +38,7 @@ public class Person {
         if (obj instanceof Person) {
             Person person = (Person) obj;
             return person.getName().equals(this.name)
-                    && person.getId() == this.id
+                    && person.getId().equals(this.id)
                     && person.getBirthDay().equals(this.birthDate);
         } else return false;
     }

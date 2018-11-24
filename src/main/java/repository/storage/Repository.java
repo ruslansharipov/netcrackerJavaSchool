@@ -1,4 +1,4 @@
-package repository;
+package repository.storage;
 
 import repository.checker.Checker;
 import repository.sorter.BubbleSorter;
@@ -14,17 +14,17 @@ public class Repository<E> implements Storage<E> {
     private Sorter<E> sorter;
 
     public Repository() {
-        this(new BubbleSorter());
-    }
-
-    public Repository(Sorter<E> sorter) {
-        this.sorter = sorter;
+        sorter = new BubbleSorter<>();
         initializeDataStorage();
     }
 
     private void initializeDataStorage() {
         size = 0;
         dataStorage = new Object[DEFAULT_CAPACITY];
+    }
+
+    public void setSorter(Sorter<E> sorter) {
+        this.sorter = sorter;
     }
 
     @Override
@@ -59,10 +59,14 @@ public class Repository<E> implements Storage<E> {
     @Override
     @SuppressWarnings("unchecked")
     public E get(int index) {
+        rangeCheck(index);
+        return (E) dataStorage[index];
+    }
+
+    private void rangeCheck(int index) {
         if (index > size || size == 0) {
             throw new IndexOutOfBoundsException(String.valueOf(index));
         }
-        return (E) dataStorage[index];
     }
 
     @Override
@@ -103,6 +107,14 @@ public class Repository<E> implements Storage<E> {
     public boolean clear() {
         initializeDataStorage();
         return true;
+    }
+
+    @Override
+    public E set(int index, E element) {
+        rangeCheck(index);
+        E oldValue = this.get(index);
+        dataStorage[index] = element;
+        return oldValue;
     }
 
     @Override

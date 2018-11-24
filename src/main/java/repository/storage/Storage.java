@@ -1,4 +1,4 @@
-package repository;
+package repository.storage;
 
 import repository.checker.Checker;
 
@@ -12,6 +12,8 @@ public interface Storage<E>{
     E remove(int index);
     boolean remove(E e);
     boolean clear();
+
+    E set(int index, E element);
 
     void sortBy(Comparator<E> comparator);
     Storage<E> search(Checker<E> checker);

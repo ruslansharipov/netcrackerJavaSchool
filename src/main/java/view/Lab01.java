@@ -1,7 +1,7 @@
 package view;
 
 import model.Person;
-import repository.Repository;
+import repository.storage.Repository;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
