@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 public class BubbleSorterTest {
 
+    private Object[] dataStorage;
     private BubbleSorter<Person> bubbleSorter = new BubbleSorter<>();
     private PersonByNameComparator byName = new PersonByNameComparator();
     private Repository<Person> notEmptyRepository;
@@ -18,12 +19,16 @@ public class BubbleSorterTest {
     @Before
     public void setUp() {
         notEmptyRepository = RepositoryTest.getNotEmptyRepository();
+        dataStorage = new Object[notEmptyRepository.size()];
+        for (int i = 0; i < notEmptyRepository.size(); i++) {
+            dataStorage[i] = notEmptyRepository.get(i);
+        }
     }
 
     @Test
     public void sort() {
-        bubbleSorter.sort(byName, notEmptyRepository);
-        Person actual = notEmptyRepository.get(1);
+        bubbleSorter.sort(byName, dataStorage, notEmptyRepository.size());
+        Person actual = (Person) dataStorage[1];
         Person expected = RepositoryTest.HETFIELD;
 
         assertEquals(expected, actual);
