@@ -61,11 +61,14 @@ public class RepositoryTest {
 
     @Test
     public void add() {
-        boolean actualBoolean = notEmptyRepository.add(new Person(6, "Trujillo", LocalDate.parse("1980-04-20")));
+        Person trujillo = new Person(6, "Trujillo", LocalDate.parse("1980-04-20"));
+        boolean actualAdd = notEmptyRepository.add(trujillo);
+        boolean actualContains = notEmptyRepository.contains(trujillo);
         int actualSize = notEmptyRepository.size();
         int expectedSize = 6;
 
-        assertTrue(actualBoolean);
+        assertTrue(actualAdd);
+        assertTrue(actualContains);
         assertEquals(expectedSize, actualSize);
     }
 
@@ -102,6 +105,11 @@ public class RepositoryTest {
 
         assertFalse(actualOnNull);
         assertFalse(actualOnNotExisting);
+
+        notEmptyRepository.add(null);
+        actualOnNull = notEmptyRepository.remove(null);
+
+        assertTrue(actualOnNull);
     }
 
     @Test
@@ -192,5 +200,16 @@ public class RepositoryTest {
         Person actual = notEmptyRepository.get(3);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void extend() {
+        for (int i = 0; i < 10; i++) {
+            notEmptyRepository.add(HETFIELD);
+        }
+        int actualSize = notEmptyRepository.size();
+        int expectedSize = 15;
+
+        assertEquals(expectedSize, actualSize);
     }
 }
