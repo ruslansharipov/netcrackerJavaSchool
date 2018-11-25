@@ -42,9 +42,9 @@ public class MergeSorter<E> implements Sorter<E> {
     /**
      * Merges parts of {@link #dataStorage} divided in {@link #mergeSort(int, int)} in correct order
      *
-     * @param lowerIndex
-     * @param middle
-     * @param higherIndex
+     * @param lowerIndex index of lower border in dataStorage
+     * @param middle index of middle point
+     * @param higherIndex index of upper border in dataStorage
      */
     private void mergeParts(int lowerIndex, int middle, int higherIndex) {
         for (int i = lowerIndex; i <= higherIndex; i++) {
