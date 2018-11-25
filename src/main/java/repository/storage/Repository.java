@@ -98,7 +98,7 @@ public class Repository<E> implements Storage<E> {
         int oldCapacity = dataStorage.length;
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         Object[] newStorage = new Object[newCapacity];
-        for (int i = 0; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             newStorage[i] = dataStorage[i];
         }
         dataStorage = newStorage;
