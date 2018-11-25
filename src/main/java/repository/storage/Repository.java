@@ -206,7 +206,7 @@ public class Repository<E> implements Storage<E> {
      */
     @Override
     public void sortBy(Comparator<E> comparator) {
-        sorter.sort(comparator, this);
+        sorter.sort(comparator, dataStorage, size);
     }
 
     /**
