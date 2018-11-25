@@ -18,6 +18,7 @@ public class MergeSorter<E> implements Sorter<E> {
 
     @Override
     public void sort(Comparator<E> comparator, Object[] dataStorage, int size) {
+        this.comparator = comparator;
         this.dataStorage = dataStorage;
         int length = dataStorage.length;
         this.buffer = new Object[length];
