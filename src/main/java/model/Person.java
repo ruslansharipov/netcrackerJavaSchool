@@ -3,16 +3,26 @@ package model;
 import org.joda.time.LocalDate;
 
 public class Person {
+
+    /**
+     * Person's id
+     */
     private Integer id;
+    /**
+     * Person's name
+     */
     private String name;
+    /**
+     * Person's date of birth
+     */
     private LocalDate birthDate;
 
     /**
      * Constructs Person object
      *
-     * @param id        person's id
-     * @param name      person's name
-     * @param birthDate person's date of birth
+     * @param id        {@link #id}
+     * @param name      {@link #name}
+     * @param birthDate {@link #birthDate}
      */
     public Person(Integer id, String name, LocalDate birthDate) {
         this.id = id;
@@ -36,6 +46,7 @@ public class Person {
 
     /**
      * Calculates the age of the person
+     *
      * @return person's age in years
      */
     public Integer getAge() {
@@ -54,6 +65,7 @@ public class Person {
 
     /**
      * Checks the equality of this object with specified object
+     *
      * @param obj object to check equality with
      * @return <tt>true</tt> if objects are equal, else return false
      */
@@ -70,6 +82,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "{name=" + name + "}";
+        return "{[id=" + id.toString() + "][name=" + name + "][age=" + getAge().toString() + "]}";
     }
 }
