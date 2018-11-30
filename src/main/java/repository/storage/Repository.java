@@ -1,5 +1,7 @@
 package repository.storage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.checker.Checker;
 import repository.sorter.BubbleSorter;
 import repository.sorter.Sorter;
@@ -7,6 +9,10 @@ import repository.sorter.Sorter;
 import java.util.Comparator;
 
 public class Repository<E> implements Storage<E> {
+    /**
+     * Static logger for logging events
+     */
+    private static Logger logger = LogManager.getLogger(Repository.class);
     /**
      * Default initial capacity
      */
@@ -33,6 +39,7 @@ public class Repository<E> implements Storage<E> {
     public Repository() {
         sorter = new BubbleSorter<>();
         initializeDataStorage();
+        logger.trace("Repository initialized");
     }
 
     /**
@@ -87,6 +94,7 @@ public class Repository<E> implements Storage<E> {
             extend();
         }
         dataStorage[size++] = e;
+        logger.trace("element added " + e.toString());
         return true;
     }
 
@@ -102,6 +110,7 @@ public class Repository<E> implements Storage<E> {
             newStorage[i] = dataStorage[i];
         }
         dataStorage = newStorage;
+        logger.trace("DataStorage extended. oldCapacity = " + oldCapacity + " newCapacity = " + newCapacity);
     }
 
     /**
@@ -122,6 +131,8 @@ public class Repository<E> implements Storage<E> {
      */
     private void rangeCheck(int index) {
         if (index > size || size == 0) {
+            logger.error("Repository.rangeCheck() (index > size || size == 0) == true",
+                    new IndexOutOfBoundsException(String.valueOf(index)));
             throw new IndexOutOfBoundsException(String.valueOf(index));
         }
     }
@@ -144,10 +155,11 @@ public class Repository<E> implements Storage<E> {
      * @param index index of element to remove
      */
     private void fastRemove(int index) {
+        logger.trace("Object removed", get(index));
         for (int i = index + 1; i < size; i++) {
             dataStorage[i - 1] = dataStorage[i];
         }
-        dataStorage[size--] = null;
+        dataStorage[--size] = null;
     }
 
     /**
@@ -182,6 +194,7 @@ public class Repository<E> implements Storage<E> {
     @Override
     public boolean clear() {
         initializeDataStorage();
+        logger.trace("repository cleared");
         return true;
     }
 
@@ -197,6 +210,7 @@ public class Repository<E> implements Storage<E> {
         rangeCheck(index);
         E oldValue = this.get(index);
         dataStorage[index] = element;
+        logger.trace("oldValue = " + oldValue.toString(), " newValue = " + element.toString());
         return oldValue;
     }
 
@@ -207,6 +221,7 @@ public class Repository<E> implements Storage<E> {
     @Override
     public void sortBy(Comparator<E> comparator) {
         sorter.sort(comparator, dataStorage, size);
+        logger.trace("repository sorted");
     }
 
     /**
