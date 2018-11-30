@@ -147,7 +147,7 @@ public class Repository<E> implements Storage<E> {
         for (int i = index + 1; i < size; i++) {
             dataStorage[i - 1] = dataStorage[i];
         }
-        size--;
+        dataStorage[size--] = null;
     }
 
     /**
