@@ -94,7 +94,7 @@ public class Repository<E> implements Storage<E> {
             extend();
         }
         dataStorage[size++] = e;
-        logger.trace("element added " + e.toString());
+        logger.trace("element added");
         return true;
     }
 
