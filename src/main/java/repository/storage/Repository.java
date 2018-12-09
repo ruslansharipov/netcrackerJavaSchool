@@ -31,6 +31,7 @@ public class Repository<E> implements Storage<E> {
     /**
      * The Sorter which will sort the dataStorage using its implementation
      */
+    @injector.Sorter
     private Sorter<E> sorter;
 
     /**
