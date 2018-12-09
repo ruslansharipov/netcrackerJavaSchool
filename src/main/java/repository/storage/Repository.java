@@ -3,7 +3,6 @@ package repository.storage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.checker.Checker;
-import repository.sorter.BubbleSorter;
 import repository.sorter.Sorter;
 
 import java.util.Comparator;
@@ -38,7 +37,6 @@ public class Repository<E> implements Storage<E> {
      * Constructs an empty repository with the initial capacity of 10
      */
     public Repository() {
-        sorter = new BubbleSorter<>();
         initializeDataStorage();
         logger.trace("Repository initialized");
     }
