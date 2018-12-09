@@ -9,8 +9,17 @@ import java.util.Properties;
 
 public class Injector {
 
+    /**
+     * The path to properties file with configuration information for injector
+     */
     public static final String PATH_TO_PROPERTIES = "src//main//resources//injector.properties";
 
+    /**
+     * Injects sorter which specified in injector.properties in the given objects
+     *
+     * @param object object in which sorter will be injected
+     * @throws IllegalAccessException
+     */
     public static void injectSorter(Object object) throws IllegalAccessException {
         Properties properties = new Properties();
         InputStream input = null;
