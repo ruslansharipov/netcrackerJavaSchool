@@ -51,7 +51,7 @@ public class Repository<E> implements Storage<E> {
 
 
     /**
-     * @return BubbleSorter as default, another sorter if was set.
+     * @return sorter if was set.
      */
     public Sorter<E> getSorter() {
         return sorter;

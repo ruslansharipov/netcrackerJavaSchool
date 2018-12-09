@@ -1,5 +1,6 @@
 package repository;
 
+import injector.Injector;
 import model.Person;
 import org.joda.time.LocalDate;
 import org.junit.After;
@@ -113,9 +114,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void bubbleSort() {
+    public void bubbleSort() throws IllegalAccessException {
+        Injector.injectSorter(notEmptyRepository);
         notEmptyRepository.sortBy(new PersonByNameComparator());
-
         Person actualPerson = notEmptyRepository.get(1);
         Person expectedPerson = HETFIELD;
 
@@ -162,7 +163,8 @@ public class RepositoryTest {
     }
 
     @Test
-    public void sortBy() {
+    public void sortBy() throws IllegalAccessException {
+        Injector.injectSorter(notEmptyRepository);
         notEmptyRepository.sortBy(new PersonByNameComparator());
         Person actual = notEmptyRepository.get(1);
         Person expected = HETFIELD;
