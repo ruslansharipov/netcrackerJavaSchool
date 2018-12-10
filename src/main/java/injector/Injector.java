@@ -3,7 +3,6 @@ package injector;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Properties;
 
@@ -30,16 +29,14 @@ public class Injector {
 
             Field[] fields = object.getClass().getDeclaredFields();
             for (Field f : fields) {
-                Annotation[] annotations = f.getAnnotations();
-                for (Annotation a : annotations) {
-                    if (a instanceof Sorter) {
-                        sorterClassName = properties.getProperty(f.getType().getName());
-                        f.setAccessible(true);
-                        Class sorterClass = Class.forName(sorterClassName);
-                        f.set(object, sorterClass.newInstance());
-                        f.setAccessible(false);
-                    }
+                if (f.getAnnotation(Sorter.class) != null) {
+                    sorterClassName = properties.getProperty(f.getType().getName());
+                    f.setAccessible(true);
+                    Class sorterClass = Class.forName(sorterClassName);
+                    f.set(object, sorterClass.newInstance());
+                    f.setAccessible(false);
                 }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
