@@ -28,7 +28,7 @@ public class InjectorTest {
         String expected = null;
         try (InputStream input = new FileInputStream(Injector.PATH_TO_PROPERTIES)) {
             properties.load(input);
-            expected = properties.getProperty("Sorter");
+            expected = properties.getProperty("repository.sorter.Sorter");
         }
         Injector.injectSorter(repository);
         String actual = repository.getSorter().getClass().getName();

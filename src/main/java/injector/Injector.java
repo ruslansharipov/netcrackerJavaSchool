@@ -27,13 +27,13 @@ public class Injector {
         try {
             input = new FileInputStream(PATH_TO_PROPERTIES);
             properties.load(input);
-            sorterClassName = properties.getProperty("Sorter");
 
             Field[] fields = object.getClass().getDeclaredFields();
             for (Field f : fields) {
                 Annotation[] annotations = f.getAnnotations();
                 for (Annotation a : annotations) {
                     if (a instanceof Sorter) {
+                        sorterClassName = properties.getProperty(f.getType().getName());
                         f.setAccessible(true);
                         Class sorterClass = Class.forName(sorterClassName);
                         f.set(object, sorterClass.newInstance());
